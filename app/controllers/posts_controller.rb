@@ -1,3 +1,4 @@
+# rspec spec/controllers/posts_controller_spec.rb
 class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
@@ -10,9 +11,11 @@ class PostsController < ApplicationController
   def update
     @post = Post.find(params[:id])
 
-    @post.update(post_params)
-
-    redirect_to post_path(@post)
+    if @post.update(post_params)
+      redirect_to post_path(@post)
+    else 
+      render :edit
+    end 
   end
 
   private
